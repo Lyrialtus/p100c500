@@ -12,7 +12,7 @@ export default new Vuex.Store({
     comments: [],
     postsPerPage: 15,
     currentPage: 1,
-    userId: 1,
+    currentUser: 'User 1',
     loading: false
   },
 
@@ -37,8 +37,11 @@ export default new Vuex.Store({
     currentPage (state) {
       return state.currentPage
     },
-    userId (state) {
-      return state.userId
+    currentUser (state) {
+      return state.currentUser
+    },
+    allUsers (state) {
+      return [...new Set(state.posts.map(post => 'User ' + post.userId))]
     },
     loading (state) {
       return state.loading
@@ -74,13 +77,16 @@ export default new Vuex.Store({
     setCurrentPage (state, value) {
       state.currentPage = value
     },
+    setCurrentUser (state, user) {
+      state.currentUser = user
+    },
     setLoading (state, isLoading) {
       state.loading = isLoading
     }
   },
 
   actions: {
-    getPostsAndComments ({commit}) {
+    getPostsAndComments ({ commit }) {
       commit('setLoading', true)
 
       let PostsPromise = new Promise((resolve, reject) => {
@@ -102,7 +108,7 @@ export default new Vuex.Store({
       Promise.all([PostsPromise, CommentsPromise])
       .then(() => commit('setLoading', false))
     },
-    createPost ({commit}, post) {
+    createPost ({ commit }, post) {
       fetch(root + 'posts/', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
@@ -117,7 +123,7 @@ export default new Vuex.Store({
       .then(postId => router.push('/post/' + postId))
       .catch(error => console.log(error))
     },
-    deletePost ({commit, state}, postId) {
+    deletePost ({ commit, state }, postId) {
       fetch(root + 'posts/' + postId, {method: 'DELETE'})
       // This should work, but JSONPlaceholder returns 404
       // .then(() => fetch(root + 'comments?postId=1', {method: 'DELETE'}))
@@ -128,7 +134,7 @@ export default new Vuex.Store({
       })
       .catch(error => console.log(error))
     },
-    deleteComment ({commit}, commentId) {
+    deleteComment ({ commit }, commentId) {
       fetch(root + 'comments/' + commentId, {method: 'DELETE'})
       .then(() => commit('deleteCommentById', commentId))
       .catch(error => console.log(error))

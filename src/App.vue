@@ -6,17 +6,24 @@
           p100c500
         </router-link>
       </v-toolbar-title>
-      <a href="https://github.com/Lyrialtus/p100c500" target="_blank">
+      <a id="hub" href="https://github.com/Lyrialtus/p100c500" target="_blank">
         <span class="mx-3 hidden-xs-only">GitHub
           <span class="hidden-sm-and-down"> Repository</span>
         </span>
       </a>
-      <v-btn flat to="/all">
+      <v-btn flat to="/all" class="mini">
         <span>All<span class="hidden-sm-and-down"> posts</span></span>
       </v-btn>
       <post-form/>
-      <v-spacer></v-spacer>
-      <span>User {{ userId }}</span>
+      <v-spacer/>
+      <v-card flat class="mx-0">
+        <v-select
+          :items="allUsers"
+          v-model="currentUser"
+          solo
+          auto
+        ></v-select>
+      </v-card>
     </v-toolbar>
     <main>
       <v-content>
@@ -39,8 +46,16 @@
       PostForm
     },
     computed: {
-      userId () {
-        return this.$store.getters.userId
+      currentUser: {
+        get () {
+          return this.$store.getters.currentUser
+        },
+        set (user) {
+          this.$store.commit('setCurrentUser', user)
+        }
+      },
+      allUsers () {
+        return this.$store.getters.allUsers
       },
       loading () {
         return this.$store.getters.loading
@@ -51,6 +66,10 @@
 
 <style lang="stylus">
   @import './stylus/main'
+
+  #hub
+    text-decoration: none
+    color: grey
 
   .mini
     min-width: auto

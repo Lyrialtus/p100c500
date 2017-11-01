@@ -5,7 +5,7 @@
       <v-card-text class="title text-xs-center">Are you sure?</v-card-text>
       <v-card-actions>
         <v-btn flat @click.native="onDelete">Delete</v-btn>
-        <v-spacer></v-spacer>
+        <v-spacer/>
         <v-btn flat @click.native="dialog = false">Cancel</v-btn>
       </v-card-actions>
     </v-card>

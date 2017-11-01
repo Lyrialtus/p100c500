@@ -1,12 +1,12 @@
 <template>
   <v-footer fixed app v-if="this.$route.name !== 'All'">
-    <v-spacer class="mx-0"></v-spacer>
+    <v-spacer class="mx-0"/>
     <v-pagination circle
-    :length="pagesTotal"
-    @input="changePage"
-    v-model="page">
-    </v-pagination>
-    <v-spacer class="mx-0"></v-spacer>
+      :length="pagesTotal"
+      @input="changePage"
+      v-model="page"
+    ></v-pagination>
+    <v-spacer class="mx-0"/>
   </v-footer>
 </template>
 

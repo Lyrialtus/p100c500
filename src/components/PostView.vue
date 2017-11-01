@@ -10,8 +10,12 @@
               </span>
             </div>
           </v-card-title>
-          <v-spacer></v-spacer>
-          <delete-confirmation-dialog :item="post" :itemType="'Post'"/>
+          <v-spacer/>
+          <delete-confirmation-dialog
+            v-if="post.userId === userId"
+            :item="post"
+            :itemType="'Post'"
+          />
         </v-layout>
         <v-card-text>
           {{ post.body }}
@@ -40,8 +44,11 @@
 <script>
   export default {
     computed: {
+      userId () {
+        // This could be easily avoided with normal user objects
+        return parseInt(this.$store.getters.currentUser.split(' ')[1])
+      },
       post () {
-        console.log(this.$route)
         return this.$store.getters.postById(this.$route.params.id)
       },
       comments () {

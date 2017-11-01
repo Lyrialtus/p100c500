@@ -2,7 +2,7 @@
 
 Just another Vue.js test project.
 
-Posts and comments from [JSONPlaceholder](https://jsonplaceholder.typicode.com/) within SPA.
+100 posts and 500 comments from [JSONPlaceholder](https://jsonplaceholder.typicode.com/) within SPA.
 
 ## Features
 

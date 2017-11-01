@@ -15,7 +15,7 @@
           <v-btn flat @click.native="post.showComments = !post.showComments">
             {{ post.showComments ? 'Hide comments' : 'Show comments' }}
           </v-btn>
-          <v-spacer></v-spacer>
+          <v-spacer/>
           <v-btn flat :to="`/post/${post.id}`">Open post</v-btn>
         </v-card-actions>
         <v-slide-y-transition>
@@ -52,8 +52,6 @@
         return this.$store.getters.postsPerPage
       },
       posts () {
-        console.log(this.$route)
-        // fix!
         let allPosts = this.$store.getters.allPosts
         if (this.$route.name === 'All') {
           return allPosts
