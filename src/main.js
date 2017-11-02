@@ -59,5 +59,9 @@ new Vue({
   render: h => h(App),
   created () {
     this.$store.dispatch('getPostsAndComments')
+    this.$store.commit('setCurrentUser', {
+      id: 1,
+      name: 'User 1'
+    })
   }
 })

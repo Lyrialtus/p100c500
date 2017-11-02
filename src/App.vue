@@ -16,10 +16,13 @@
       </v-btn>
       <post-form/>
       <v-spacer/>
-      <v-card flat class="mx-0">
+      <v-card flat class="mx-0" v-if="!loading">
         <v-select
           :items="allUsers"
+          item-value="id"
+          item-text="name"
           v-model="currentUser"
+          return-object
           solo
           auto
         ></v-select>

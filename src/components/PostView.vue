@@ -86,8 +86,7 @@
     },
     computed: {
       userId () {
-        // This could be easily avoided with normal user objects
-        return parseInt(this.$store.getters.currentUser.split(' ')[1])
+        return parseInt(this.$store.getters.currentUser.id)
       },
       post () {
         return this.$store.getters.postById(this.$route.params.id)

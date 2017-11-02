@@ -39,8 +39,7 @@
     },
     computed: {
       userId () {
-        // Well, will be updated later, definitely
-        return parseInt(this.$store.getters.currentUser.split(' ')[1])
+        return parseInt(this.$store.getters.currentUser.id)
       }
     },
     methods: {

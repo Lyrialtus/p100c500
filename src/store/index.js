@@ -13,7 +13,7 @@ export default new Vuex.Store({
     comments: [],
     postsPerPage: 15,
     currentPage: 1,
-    currentUser: 'User 1',
+    currentUser: {},
     loading: false
   },
 
@@ -42,7 +42,12 @@ export default new Vuex.Store({
       return state.currentUser
     },
     allUsers (state) {
-      return [...new Set(state.posts.map(post => 'User ' + post.userId))]
+      return [...new Set(state.posts.map(post => {
+        return JSON.stringify({
+          id: post.userId,
+          name: 'User ' + post.userId
+        })
+      }))].map(string => JSON.parse(string))
     },
     loading (state) {
       return state.loading
