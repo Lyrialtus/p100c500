@@ -14,7 +14,9 @@
           name="body"
           v-model="body"
           label="Text"
-          textarea
+          hide-details
+          multi-line
+          auto-grow
         ></v-text-field>
       </v-card-text>
       <v-card-actions>
@@ -37,7 +39,8 @@
     },
     computed: {
       userId () {
-        return this.$store.getters.userId
+        // Well, will be updated later, definitely
+        return parseInt(this.$store.getters.currentUser.split(' ')[1])
       }
     },
     methods: {

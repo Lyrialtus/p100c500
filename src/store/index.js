@@ -7,6 +7,7 @@ Vue.use(Vuex)
 const root = 'https://jsonplaceholder.typicode.com/'
 
 export default new Vuex.Store({
+  strict: process.env.NODE_ENV !== 'production',
   state: {
     posts: [],
     comments: [],
@@ -50,13 +51,17 @@ export default new Vuex.Store({
 
   mutations: {
     setAllPosts (state, posts) {
-      posts.forEach((post) => {
+      posts.forEach(post => {
         post.showComments = false
       })
       state.posts = posts
     },
     addPost (state, post) {
       state.posts.push(post)
+    },
+    updatePost (state, post) {
+      const index = state.posts.findIndex(oldPost => oldPost.id === post.id)
+      state.posts[index] = post
     },
     deletePostById (state, postId) {
       state.posts = state.posts.filter(post => post.id !== postId)
@@ -116,12 +121,26 @@ export default new Vuex.Store({
       })
       .then(response => response.json())
       .then(post => {
-        console.log(post)
         commit('addPost', post)
         return post.id
       })
       .then(postId => router.push('/post/' + postId))
       .catch(error => console.log(error))
+    },
+    editPost ({ commit }, data) {
+      commit('setLoading', true)
+      fetch(root + 'posts/' + data.postId, {
+        method: 'PATCH',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          title: data.title,
+          body: data.body
+        })
+      })
+      .then(response => response.json())
+      .then(post => commit('updatePost', post))
+      .catch(error => console.log(error))
+      .then(() => commit('setLoading', false))
     },
     deletePost ({ commit, state }, postId) {
       fetch(root + 'posts/' + postId, {method: 'DELETE'})

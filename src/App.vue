@@ -80,4 +80,7 @@
   .pagination__item--active
     color: black !important
     background: $grey.lighten-2 !important
+
+  .input-group--text-field.input-group--textarea textarea
+    font-size: 14px
 </style>

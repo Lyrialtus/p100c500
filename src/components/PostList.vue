@@ -9,10 +9,10 @@
           </div>
         </v-card-title>
         <v-card-text>
-          {{ post.body }}
+          <span style="white-space: pre-wrap">{{ post.body }}</span>
         </v-card-text>
         <v-card-actions>
-          <v-btn flat @click.native="post.showComments = !post.showComments">
+          <v-btn flat @click="post.showComments = !post.showComments">
             {{ post.showComments ? 'Hide comments' : 'Show comments' }}
           </v-btn>
           <v-spacer/>
@@ -32,7 +32,7 @@
                   </v-tooltip>
                   {{ comment.name }}
                 </div>
-                {{ comment.body }}
+                <span style="white-space: pre-wrap">{{ comment.body }}</span>
               </v-card-text>
             </v-card>
           </div>
