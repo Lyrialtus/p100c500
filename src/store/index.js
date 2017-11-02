@@ -29,7 +29,7 @@ export default new Vuex.Store({
     },
     commentsByPostId (state) {
       return postId => state.comments.filter(comment => {
-        return comment.postId === parseInt(postId)
+        return comment.postId === postId
       })
     },
     postsPerPage (state) {
@@ -67,6 +67,10 @@ export default new Vuex.Store({
     updatePost (state, post) {
       const index = state.posts.findIndex(oldPost => oldPost.id === post.id)
       state.posts[index] = post
+    },
+    toggleComments (state, postId) {
+      const index = state.posts.findIndex(post => post.id === postId)
+      state.posts[index].showComments = !state.posts[index].showComments
     },
     deletePostById (state, postId) {
       state.posts = state.posts.filter(post => post.id !== postId)

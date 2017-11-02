@@ -26,6 +26,7 @@ import router from './router'
 import store from './store'
 
 import DeleteConfirmationDialog from './components/DeleteConfirmationDialog'
+import CommentList from './components/CommentList'
 
 Vue.use(Vuetify, {
   components: {
@@ -50,6 +51,7 @@ Vue.use(Vuetify, {
 Vue.config.productionTip = false
 
 Vue.component('delete-confirmation-dialog', DeleteConfirmationDialog)
+Vue.component('comment-list', CommentList)
 
 /* eslint-disable no-new */
 new Vue({

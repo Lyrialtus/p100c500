@@ -57,22 +57,9 @@
           </v-card-actions>
         </div>
       </v-card>
-      <div class="title text-xs-center my-3">Comments: {{ comments.length }}
+      <div class="title text-xs-center my-3">Comments: {{ commentsLength }}
       </div>
-      <v-card color="grey lighten-4"
-      v-for="comment in comments"
-      :key="comment.id">
-        <v-card-text>
-          <div class="subheading grey--text">
-            <v-tooltip top>
-              <v-icon class="pb-1" slot="activator">perm_identity</v-icon>
-              <span>{{ comment.email }}</span>
-            </v-tooltip>
-            {{ comment.name }}
-          </div>
-          <span style="white-space: pre-wrap">{{ comment.body }}</span>
-        </v-card-text>
-      </v-card>
+      <comment-list :postId="post.id" color="grey lighten-4"/>
     </v-flex>
   </v-layout>
 </template>
@@ -91,8 +78,8 @@
       post () {
         return this.$store.getters.postById(this.$route.params.id)
       },
-      comments () {
-        return this.$store.getters.commentsByPostId(this.$route.params.id)
+      commentsLength () {
+        return this.$store.getters.commentsByPostId(this.post.id).length
       }
     },
     methods: {
