@@ -100,27 +100,21 @@ export default new Vuex.Store({
   },
 
   actions: {
-    getPostsAndComments ({ commit }) {
+    async getPostsAndComments ({ commit }) {
       commit('setLoading', true)
 
-      let PostsPromise = new Promise((resolve, reject) => {
-        fetch(root + 'posts')
-        .then(response => response.json())
-        .then(json => commit('setAllPosts', json))
-        .catch(error => console.log(error))
-        .then(() => resolve(true))
-      })
+      const postsRequest = fetch(root + 'posts')
+      .then(response => response.json())
+      .then(json => commit('setAllPosts', json))
+      .catch(error => console.log(error))
 
-      let CommentsPromise = new Promise((resolve, reject) => {
-        fetch(root + 'comments')
-        .then(response => response.json())
-        .then(json => commit('setAllComments', json))
-        .catch(error => console.log(error))
-        .then(() => resolve(true))
-      })
+      const commentsRequest = fetch(root + 'comments')
+      .then(response => response.json())
+      .then(json => commit('setAllComments', json))
+      .catch(error => console.log(error))
 
-      Promise.all([PostsPromise, CommentsPromise])
-      .then(() => commit('setLoading', false))
+      await Promise.all([postsRequest, commentsRequest])
+      commit('setLoading', false)
     },
     createPost ({ commit }, post) {
       fetch(root + 'posts/', {
